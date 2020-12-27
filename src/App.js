@@ -6,7 +6,7 @@ import ViewList from "./components/ViewList";
 
 class App extends Component {
   state = {
-    rout: "list", //form
+    rout: "form", //form
     data: [],
   };
 
