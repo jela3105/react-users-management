@@ -24,12 +24,22 @@ class App extends Component {
     });
   };
 
+  newUser = () => {
+    this.setState({
+      rout: "form",
+    });
+  };
+
   render() {
     const { rout, data } = this.state;
     return (
       <div className="App">
         {rout === "list" && (
-          <ViewList handleClick={this.selectUser} data={data} />
+          <ViewList
+            handleClick={this.selectUser}
+            data={data}
+            newUser={this.newUser}
+          />
         )}
         {rout === "form" && <UserForm />}
       </div>
