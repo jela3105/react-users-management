@@ -17,11 +17,20 @@ class App extends Component {
       .then(({ data }) => this.setState({ data }));
   }
 
+  selectUser = (id) => {
+    this.setState({
+      rout: "form",
+      selectUser: id,
+    });
+  };
+
   render() {
     const { rout, data } = this.state;
     return (
       <div className="App">
-        {rout === "list" && <ViewList data={data} />}
+        {rout === "list" && (
+          <ViewList handleClick={this.selectUser} data={data} />
+        )}
         {rout === "form" && <UserForm />}
       </div>
     );
