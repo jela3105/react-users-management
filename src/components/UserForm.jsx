@@ -29,11 +29,12 @@ export default class UserForm extends Component {
     const result = validate(withoutErrors);
     this.setState({ errors: result });
     if (!Object.keys(result).length) {
+      const { handleSubmit } = this.props;
+      handleSubmit(withoutErrors);
       //send form
     }
     e.target.reset();
   };
-
   render() {
     const { errors } = this.state;
     return (

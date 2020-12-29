@@ -6,7 +6,7 @@ import ViewList from "./components/ViewList";
 
 class App extends Component {
   state = {
-    rout: "form", //form
+    route: "list", //form
     data: [],
   };
 
@@ -19,29 +19,41 @@ class App extends Component {
 
   selectUser = (id) => {
     this.setState({
-      rout: "form",
+      route: "form",
       selectUser: id,
     });
   };
 
+  addNewUser = (user) => {
+    axios
+      .post("http://jsonplaceholder.typicode.com/users", user)
+      .then(({ data }) => {
+        const newData = this.state.data.concat(data);
+        this.setState({
+          data: newData,
+          route: "list",
+        });
+      });
+  };
+
   newUser = () => {
     this.setState({
-      rout: "form",
+      route: "form",
     });
   };
 
   render() {
-    const { rout, data } = this.state;
+    const { route, data } = this.state;
     return (
       <div className="App">
-        {rout === "list" && (
+        {route === "list" && (
           <ViewList
             handleClick={this.selectUser}
             data={data}
             newUser={this.newUser}
           />
         )}
-        {rout === "form" && <UserForm />}
+        {route === "form" && <UserForm handleSubmit={this.addNewUser} />}
       </div>
     );
   }
