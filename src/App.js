@@ -43,7 +43,8 @@ class App extends Component {
   };
 
   render() {
-    const { route, data } = this.state;
+    const { route, data, selectUser } = this.state;
+    const initialValues = selectUser && data.find((x) => x.id === selectUser);
     return (
       <div className="App">
         {route === "list" && (
@@ -53,7 +54,12 @@ class App extends Component {
             newUser={this.newUser}
           />
         )}
-        {route === "form" && <UserForm handleSubmit={this.addNewUser} />}
+        {route === "form" && (
+          <UserForm
+            initialValues={initialValues || {}}
+            handleSubmit={this.addNewUser}
+          />
+        )}
       </div>
     );
   }
