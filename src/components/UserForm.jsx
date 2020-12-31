@@ -23,17 +23,29 @@ export default class UserForm extends Component {
     });
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.state,
+      ...props.initialValues,
+    };
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     const { errors, ...withoutErrors } = this.state;
     const result = validate(withoutErrors);
-    this.setState({ errors: result });
+
     if (!Object.keys(result).length) {
-      const { handleSubmit } = this.props;
-      handleSubmit(withoutErrors);
-      //send form
+      const { handleSubmit, initialValues, handleUpdate } = this.props;
+      if (initialValues.id) {
+        handleUpdate(initialValues.id, withoutErrors);
+      } else {
+        handleSubmit(withoutErrors);
+      }
+    } else {
+      this.setState({ errors: result });
     }
-    e.target.reset();
   };
   render() {
     const { errors } = this.state;
@@ -53,12 +65,12 @@ export default class UserForm extends Component {
           onChange={this.handleChange}
           defaultValue={initialValues.email}
         />
-        {errors.email && <p>{errors.website}</p>}
+        {errors.email && <p>{errors.email}</p>}
         <input
           placeholder="Web site"
           name="website"
           onChange={this.handleChange}
-          defaultValue={initialValues.email}
+          defaultValue={initialValues.website}
         />
         {errors.website && <p>{errors.website}</p>}
         <input type="submit" value="Send" />
