@@ -37,11 +37,11 @@ export default class UserForm extends Component {
     const result = validate(withoutErrors);
 
     if (!Object.keys(result).length) {
-      const { handleSubmit, initialValues, handleUpdate } = this.props;
+      const { handleNewUser, initialValues, handleUpdate } = this.props;
       if (initialValues.id) {
         handleUpdate(initialValues.id, withoutErrors);
       } else {
-        handleSubmit(withoutErrors);
+        handleNewUser(withoutErrors);
       }
     } else {
       this.setState({ errors: result });

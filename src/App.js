@@ -29,6 +29,7 @@ class App extends Component {
       .post("http://jsonplaceholder.typicode.com/users", user)
       .then(({ data }) => {
         const newData = this.state.data.concat(data);
+        console.log("Hapy 2021");
         this.setState({
           data: newData,
           route: "list",
@@ -50,9 +51,11 @@ class App extends Component {
         this.setState({
           data: newData,
           route: "list",
+          selectUser: "",
         });
       });
   };
+
   render() {
     const { route, data, selectUser } = this.state;
     const initialValues = selectUser && data.find((x) => x.id === selectUser);
@@ -68,7 +71,7 @@ class App extends Component {
         {route === "form" && (
           <UserForm
             initialValues={initialValues || {}}
-            handleSubmit={this.addNewUser}
+            handleNewUser={this.addNewUser}
             handleUpdate={this.updateUser}
           />
         )}
