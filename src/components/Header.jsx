@@ -3,6 +3,9 @@ import React, { Component } from "react";
 const styles = {
   header: {
     textAlign: "center",
+    marginRight: "200px",
+    marginLeft: "200px",
+    listStyleType: "none",
     backgroundColor: "#828282",
   },
   h2: {
